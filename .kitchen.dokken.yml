@@ -1,0 +1,56 @@
+---
+#
+# File:: kitchen.yml
+# Author:: James Cuzella
+#
+# Copyright:: 2020,  James Cuzella
+# License:: GPLv3.0
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+driver:
+  name: dokken
+  privileged: true # because Docker and SystemD/Upstart
+  chef_version: <%= ENV['CHEF_VERSION'] || 'current' %>
+  chef_license: accept-no-persist
+  volumes: [
+    '/var/lib/docker'
+    ]
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+  deprecations_as_errors: true
+  chef_license: accept-no-persist
+
+verifier:
+  name: inspec
+
+
+platforms:
+- name: ubuntu-20.04
+  driver:
+    image: dokken/ubuntu-20.04
+    intermediate_instructions:
+      - RUN /usr/sbin/addgroup --gid 1000 vagrant
+      - RUN /usr/bin/echo -e 'vagrant\nvagrant\n' | /usr/sbin/adduser --home /home/vagrant --shell /bin/bash --uid 1000 --gid 1000 --gecos Vagrant  vagrant
+      - RUN mkdir /etc/systemd/system/docker.service.d
+      - RUN /usr/bin/echo -e '[Service]\nExecStart=\nExecStart=/usr/bin/dockerd -H unix:// --containerd=/run/containerd/containerd.sock\n' >  /etc/systemd/system/docker.service.d/00-unix-socket.conf
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro # required by systemd
+      # - /var/run/docker.sock:/var/run/docker.sock:rw # required by docker
+    pid_one_command: /bin/systemd
+
