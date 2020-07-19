@@ -15,7 +15,7 @@ sudo: required
 
 # Don't `bundle install` which takes about 1.5 mins
 install:
-  - eval "$(chef shell-init bash)"
+  - export CHEF_LICENSE=accept ; eval "$(chef shell-init bash)"
   - chef exec bundle install
 
 env:
