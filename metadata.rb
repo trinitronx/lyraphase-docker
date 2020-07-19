@@ -36,3 +36,6 @@ source_url 'https://github.com/trinitronx/lyraphase-docker'
 supports 'debian'
 
 depends 'docker', '~> 6.0'
+
+recipe 'lyraphase-docker::default', 'Install `docker-ce` from [Docker official Apt repository](https://docs.docker.com/engine/install/ubuntu/) via [`docker` cookbook.](https://supermarket.chef.io/cookbooks/docker)'
+recipe 'lyraphase-docker::docker_compose', 'Install `docker-compose` via either [binary install method](https://github.com/docker/compose/releases/download), or from [official Ubuntu APT repository](http://archive.ubuntu.com/ubuntu/pool/universe/d/docker-compose/).'

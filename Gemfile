@@ -66,4 +66,7 @@ group :development do
   gem 'guard-rubocop'
   gem 'rb-fsevent'
   #  gem 'mixlib-versioning'
+  group :documentation do
+    gem 'knife-cookbook-doc', '~> 0.29'
+  end
 end

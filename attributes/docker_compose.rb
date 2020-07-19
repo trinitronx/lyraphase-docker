@@ -22,5 +22,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+#<> Whether to install binary via [GitHub Releases](https://github.com/docker/compose/releases/download) or the [Official Ubuntu APT repo packages](http://archive.ubuntu.com/ubuntu/pool/universe/d/docker-compose/). (`Boolean`). Available options: `true`, `false`
 default['lyraphase-docker']['compose']['install_binary'] = false
-default['lyraphase-docker']['compose']['version'] = '' # Default is to install latest available package
+#<> The version of `docker-compose` to install. Default is an empty String, and installs latest available APT package.
+default['lyraphase-docker']['compose']['version'] = ''
