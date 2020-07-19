@@ -41,6 +41,6 @@ before_script:
 script:
   - '[[ "$TEST_TYPE" == "unit" ]] && chef exec rake travis || true'
   - '[[ "$TEST_TYPE" == "integration" ]] && kitchen verify ${KITCHEN_REGEXP} || true'
-after_script:
-  - '[[ "$TEST_TYPE" == "integration" ]] && echo "---------------- DOCKER CONTAINER LOGS ----------------"'
-  - '[[ "$TEST_TYPE" == "integration" ]] && for c in $(docker ps -aq) ; do sudo docker exec -ti $c /bin/journalctl --no-pager ; done'
+after_failure:
+  - '[[ "$TEST_TYPE" == "integration" ]] && echo "---------------- KITCHEN LOGS ----------------"'
+  - '[[ "$TEST_TYPE" == "integration" ]] && cat .kitchen/logs/kitchen.log'
