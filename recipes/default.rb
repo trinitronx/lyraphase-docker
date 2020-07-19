@@ -19,7 +19,16 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 docker_installation_package 'default' do
-  version '19.03.12'
+  version node['lyraphase-docker']['version']
   action :create
   # package_options %q|--force-yes -o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-all'| # if Ubuntu for example
+end
+
+if ! node['lyraphase-docker']['users'].nil? && ! node['lyraphase-docker']['users'].empty?
+  group 'docker' do
+    action :modify
+    members node['lyraphase-docker']['users']
+    system true
+    append true
+  end
 end
