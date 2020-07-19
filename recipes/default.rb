@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-#
+
 # Cookbook:: lyraphase-docker
 # Recipe:: default
 #
@@ -21,10 +21,9 @@
 docker_installation_package 'default' do
   version node['lyraphase-docker']['version']
   action :create
-  # package_options %q|--force-yes -o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-all'| # if Ubuntu for example
 end
 
-if ! node['lyraphase-docker']['users'].nil? && ! node['lyraphase-docker']['users'].empty?
+if !node['lyraphase-docker']['users'].nil? && !node['lyraphase-docker']['users'].empty?
   group 'docker' do
     action :modify
     members node['lyraphase-docker']['users']

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # Ensure that a user is added to the Docker group
 
 describe group('docker') do
@@ -7,5 +8,5 @@ end
 
 describe user('vagrant') do
   it { should exist }
-  its('groups') { should include 'docker'}
+  its('groups') { should include 'docker' }
 end

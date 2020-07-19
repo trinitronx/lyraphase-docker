@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # InSpec test for recipe lyraphase-docker::default
 
 # The InSpec reference, with examples and extensive documentation, can be
