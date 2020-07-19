@@ -20,17 +20,24 @@ namespace :style do
   #   sh "knife cookbook test -c test/.chef/knife.rb -o #{cookbook_path} -a"
   # end
 
+  require 'cookstyle'
+  require 'rubocop/rake_task'
+  desc 'Run CookStyle checks'
+  RuboCop::RakeTask.new(:cook) do |task|
+    task.options << '--display-cop-names'
+  end
+
   desc 'Run RuboCop style checks'
   RuboCop::RakeTask.new(:ruby)
 
-  desc 'Run Chef style checks'
-  FoodCritic::Rake::LintTask.new(:chef) do |t|
+  desc 'Run FoodCritic style checks'
+  FoodCritic::Rake::LintTask.new(:foodcritic) do |t|
     t.options = {fail_tags: ['correctness'], tags: ['~FC023', '~FC121'], context: true}
   end
 end
 
 desc 'Run all style checks'
-task style: ['style:chef', 'style:ruby']
+task style: ['style:foodcritic', 'style:ruby', 'style:cook']
 
 # http://berkshelf.com/
 desc 'Install Berkshelf to local cookbooks path'
