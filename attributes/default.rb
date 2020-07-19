@@ -6,7 +6,7 @@
 # Attribute:: default
 # Author:: James Cuzella
 #
-# Copyright:: 2020,  James Cuzella
+# Copyright:: © 🄯 2020,  James Cuzella
 # License:: GPLv3.0
 #
 # This program is free software: you can redistribute it and/or modify
