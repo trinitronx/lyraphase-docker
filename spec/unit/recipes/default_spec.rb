@@ -39,7 +39,7 @@ describe 'lyraphase-docker::default' do
       expect { chef_run }.to_not raise_error
     end
     it 'installs docker' do
-      expect { chef_run }.to create_docker_installation_package('default').with(version: docker_version)
+      expect(chef_run).to create_docker_installation_package('default').with(version: docker_version)
     end
   end
 
@@ -49,17 +49,24 @@ describe 'lyraphase-docker::default' do
     platform 'ubuntu', '20.04'
     let(:docker_version) { '19.03.12' }
     let(:docker_user) { 'brubble' }
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new(platform: 'ubuntu', version: '20.04') do |node|
+        node.normal['lyraphase-docker']['version'] = docker_version
+        node.normal['lyraphase-docker']['users'] = ['brubble']
+      end
+      runner.converge(described_recipe)
+    end
 
     it 'converges successfully' do
       expect { chef_run }.to_not raise_error
     end
     it 'installs docker' do
-      expect { chef_run }.to expect(chef_run).to create_docker_installation_package('default').with(
+      expect(chef_run).to create_docker_installation_package('default').with(
         version: docker_version
       )
     end
     it 'adds brubble to docker group' do
-      expect { chef_run }.to modify_group('docker').with_members('brubble')
+      expect(chef_run).to modify_group('docker').with_members(['brubble'])
     end
   end
 end
