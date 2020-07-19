@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 #
 # Cookbook:: lyraphase-docker
 # Recipe:: default
 #
-# Copyright:: 2020,  The Authors
+# Copyright:: 2020,  James Cuzella
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,3 +17,9 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+docker_installation_package 'default' do
+  version '19.03.12'
+  action :create
+  # package_options %q|--force-yes -o Dpkg::Options::='--force-confold' -o Dpkg::Options::='--force-all'| # if Ubuntu for example
+end
