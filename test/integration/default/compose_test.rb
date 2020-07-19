@@ -27,7 +27,7 @@
 # found at https://www.inspec.io/docs/reference/resources/
 
 install_binary = input('install_binary')
-version = input('version')
+version = input('compose_version')
 version_regexp = Regexp.new(version, Regexp::IGNORECASE | Regexp::MULTILINE)
 
 describe command('docker-compose -v') do

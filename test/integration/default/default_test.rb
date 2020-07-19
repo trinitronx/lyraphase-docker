@@ -26,21 +26,32 @@
 # The InSpec reference, with examples and extensive documentation, can be
 # found at https://www.inspec.io/docs/reference/resources/
 
-describe file('/var/run/docker.sock') do
-  it { should exist }
-  its('type') { should eq :socket }
-  its('owner') { should eq 'root' }
-  its('group') { should eq 'docker' }
-  its('mode') { should cmp '0660' }
+test_driver = input('test_driver')
+version = input('docker_version')
+version_regexp = Regexp.new(version.to_s, Regexp::IGNORECASE | Regexp::MULTILINE)
+
+describe command('/usr/bin/docker --version') do
+  its(:exit_status) { should eq 0 }
+  its(:stdout) { should match(version_regexp) } if !version.nil? && !version.empty?
 end
 
-describe systemd_service('docker') do
-  it { should be_enabled }
-  it { should be_installed }
-  it { should be_running }
-end
+if test_driver != 'dokken'
+  describe file('/var/run/docker.sock') do
+    it { should exist }
+    its('type') { should eq :socket }
+    its('owner') { should eq 'root' }
+    its('group') { should eq 'docker' }
+    its('mode') { should cmp '0660' }
+  end
 
-describe command('docker') do
-  it { should exist }
-  its('exit_status') { should eq 0 }
+  describe systemd_service('docker') do
+    it { should be_enabled }
+    it { should be_installed }
+    it { should be_running }
+  end
+
+  describe command('docker') do
+    it { should exist }
+    its('exit_status') { should eq 0 }
+  end
 end

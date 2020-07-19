@@ -38,7 +38,8 @@ provisioner:
 
 verifier:
   name: inspec
-
+  inputs:
+    test_driver: 'dokken'
 
 platforms:
 - name: ubuntu-20.04
