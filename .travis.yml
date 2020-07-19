@@ -20,7 +20,6 @@ install:
 
 env:
   - CHEF_LICENSE=accept
-  - KITCHEN_LOCAL_YAML=.kitchen.dokken.yml
 
 #branches:
 #  only:
@@ -41,7 +40,7 @@ before_script:
 
 script:
   - 'if [[ "$TEST_TYPE" == "unit" ]]; then chef exec rake travis ; fi'
-  - 'if [[ "$TEST_TYPE" == "integration" ]]; then kitchen verify ${KITCHEN_REGEXP} ; fi'
+  - 'if [[ "$TEST_TYPE" == "integration" ]]; then KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen verify ${KITCHEN_REGEXP} ; fi'
 after_failure:
   - '[[ "$TEST_TYPE" == "integration" ]] && echo "---------------- KITCHEN LOGS ----------------"'
   - '[[ "$TEST_TYPE" == "integration" ]] && cat .kitchen/logs/kitchen.log'
