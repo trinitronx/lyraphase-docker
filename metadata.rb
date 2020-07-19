@@ -6,7 +6,7 @@ maintainer_email 'james.cuzella@lyraphase.com'
 license 'GPL-3.0'
 description 'Installs/Configures docker-ce on a host'
 version '0.1.0'
-chef_version '>= 15.0' if respond_to?(:chef_version)
+chef_version '>= 15.0'
 
 license 'GPL-3.0'
 
