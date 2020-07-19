@@ -60,6 +60,13 @@
 *No dependencies defined*
 <% end %>
 
+<% if fragments['usage'] -%>
+# Usage
+
+<%= fragments['usage'] -%>
+
+<% end -%>
+
 # Attributes
 
 <% unless attributes.empty? %>
@@ -174,7 +181,7 @@
 <%= lib.descriptions %>
 <% end -%>
 <% end -%>
-<% fragments.keys.select {|k|k != 'overview' && k != 'credit' && k != 'requirements'}.each do |key| -%>
+<% fragments.keys.select {|k|k != 'overview' && k != 'credit' && k != 'requirements' && k != 'header' && k != 'usage'}.each do |key| -%>
 <%= fragments[key] %>
 
 <% end -%>
