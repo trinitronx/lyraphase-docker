@@ -6,3 +6,12 @@
 
 Installs `docker-ce` from Docker official Apt repository via `docker` cookbook.
 
+Optionally: Installs `docker-compose` from either official Ubuntu Repositories
+
+# Requirements
+
+- [chef][1] gem (`>= 15.0`)
+- [docker][2] cookbook (`~> 6.0.3`)
+
+[1]: https://rubygems.org/gems/chef
+[2]: https://supermarket.chef.io/cookbooks/docker
