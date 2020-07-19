@@ -31,10 +31,34 @@ suites:
   - name: default
     run_list:
       - recipe[lyraphase-docker::default]
+      - recipe[lyraphase-docker::docker_compose]
     verifier:
       inspec_tests:
         - test/integration/default
+      inputs:
+        version: '1.25.0'
+        install_binary: false
     attributes:
       "lyraphase-docker":
         users:
           - vagrant
+        compose:
+          install_binary: false
+          version: '1.25.0*'
+  - name: compose-binary-install
+    run_list:
+      - recipe[lyraphase-docker::default]
+      - recipe[lyraphase-docker::docker_compose]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+      inputs:
+        version: '1.26.2'
+        install_binary: true
+    attributes:
+      "lyraphase-docker":
+        users:
+          - vagrant
+        compose:
+          install_binary: true
+          version: '1.26.2'
