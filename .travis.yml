@@ -2,7 +2,10 @@ dist: xenial
 addons:
   apt:
     sources:
-      - chef-current-focal
+      - chef-current-bionic
+# TODO: Enable when TravisCI adds this
+# Reference: https://github.com/travis-ci/apt-source-safelist/tree/master/keys
+#      - chef-current-focal
     packages:
       - chef-workstation
 services:
