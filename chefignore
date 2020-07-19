@@ -128,6 +128,7 @@ CONTRIBUTING*
 documentation/*
 TESTING*
 UPGRADING*
+doc/*
 
 # Vagrant #
 ###########

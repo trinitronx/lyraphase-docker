@@ -67,7 +67,7 @@ namespace :style do
 
   desc 'Run FoodCritic style checks'
   FoodCritic::Rake::LintTask.new(:foodcritic) do |t|
-    t.options = {fail_tags: ['correctness'], tags: ['~FC023', '~FC121'], context: true}
+    t.options = {fail_tags: ['correctness'], tags: ['~FC023', '~FC121'], context: true, exclude_paths: ['doc/**/*']}
   end
 end
 
