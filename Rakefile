@@ -24,11 +24,26 @@
 require 'bundler/setup'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+require 'knife_cookbook_doc/rake_task'
 # http://acrmp.github.com/foodcritic/
 require 'foodcritic'
 
 task default: [:style, :spec]
 task test: [:default]
+
+# Maintainer tasks
+namespace :maintainer do
+  # With default options
+  KnifeCookbookDoc::RakeTask.new(:doc)
+
+  # Example with custom options
+  KnifeCookbookDoc::RakeTask.new(:doc) do |t|
+    t.options[:cookbook_dir] = './'
+    t.options[:constraints] = true
+    t.options[:output_file] = 'README.md'
+    t.options[:template_file] = "#{File.dirname(__FILE__)}/doc/templates/README.md.erb"
+  end
+end
 
 # Style tests. Knife, Rubocop and Foodcritic
 namespace :style do
