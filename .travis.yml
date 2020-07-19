@@ -1,0 +1,43 @@
+dist: xenial
+addons:
+  apt:
+    sources:
+      - chef-current-focal
+    packages:
+      - chef-workstation
+services:
+  - docker
+
+sudo: required
+
+# Don't `bundle install` which takes about 1.5 mins
+install:
+  - eval "$(chef shell-init bash)"
+  - chef exec bundle install
+
+env:
+  - CHEF_LICENSE=accept
+
+branches:
+  only:
+    - master
+
+services: docker
+
+env:
+  matrix:
+  - TEST_TYPE=integration KITCHEN_REGEXP=default-ubuntu
+  - TEST_TYPE=integration KITCHEN_REGEXP=compose-binary-install-ubuntu
+  - TEST_TYPE=unit
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(chef shell-init bash)"
+  - chef --version
+
+script:
+  - '[[ "$TEST_TYPE" == "unit" ]] && chef exec rake travis'
+  - '[[ "$TEST_TYPE" == "integration" ]] && kitchen verify ${KITCHEN_REGEXP}'
+after_script:
+  - '[[ "$TEST_TYPE" == "integration" ]] && echo "---------------- DOCKER CONTAINER LOGS ----------------"'
+  - '[[ "$TEST_TYPE" == "integration" ]] && for c in $(docker ps -aq) ; do sudo docker exec -ti $c /bin/journalctl --no-pager ; done'
