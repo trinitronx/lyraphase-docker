@@ -39,8 +39,8 @@ before_script:
   - chef --version
 
 script:
-  - '[[ "$TEST_TYPE" == "unit" ]] && chef exec rake travis || true'
-  - '[[ "$TEST_TYPE" == "integration" ]] && kitchen verify ${KITCHEN_REGEXP} || true'
+  - 'if [[ "$TEST_TYPE" == "unit" ]]; then chef exec rake travis ; fi'
+  - 'if [[ "$TEST_TYPE" == "integration" ]]; then kitchen verify ${KITCHEN_REGEXP} ; fi'
 after_failure:
   - '[[ "$TEST_TYPE" == "integration" ]] && echo "---------------- KITCHEN LOGS ----------------"'
   - '[[ "$TEST_TYPE" == "integration" ]] && cat .kitchen/logs/kitchen.log'
