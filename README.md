@@ -1,4 +1,4 @@
 # lyraphase-docker
 
-TODO: Enter the cookbook description here.
+Installs `docker-ce` from Docker official Apt repository via `docker` cookbook.
 
