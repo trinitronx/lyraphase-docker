@@ -69,8 +69,16 @@ The default is an empty Array (`[]` ), which skips this task, and adds no users 
 
 # Recipes
 
-* lyraphase-docker::default - Install `docker-ce` from [Docker official Apt repository](https://docs.docker.com/engine/install/ubuntu/) via [`docker` cookbook.](https://supermarket.chef.io/cookbooks/docker)
-* lyraphase-docker::docker_compose - Install `docker-compose` via either [binary install method](https://github.com/docker/compose/releases/download), or from [official Ubuntu APT repository](http://archive.ubuntu.com/ubuntu/pool/universe/d/docker-compose/).
+* [lyraphase-docker::default](#lyraphase-dockerdefault)
+* [lyraphase-docker::docker_compose](#lyraphase-dockerdocker_compose) - Install `docker-compose` via either [binary install method](https://github.com/docker/compose/releases/download), or from [official Ubuntu APT repository](http://archive.ubuntu.com/ubuntu/pool/universe/d/docker-compose/).
+
+## lyraphase-docker::default
+
+Install `docker-ce` from [Docker official Apt repository](https://docs.docker.com/engine/install/ubuntu/) via [`docker` cookbook.](https://supermarket.chef.io/cookbooks/docker)
+
+## lyraphase-docker::docker_compose
+
+Install `docker-compose` via either [binary install method](https://github.com/docker/compose/releases/download), or from [official Ubuntu APT repository](http://archive.ubuntu.com/ubuntu/pool/universe/d/docker-compose/).
 
 # License and Maintainer
 
