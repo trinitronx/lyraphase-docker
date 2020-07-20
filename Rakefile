@@ -5,7 +5,7 @@
 # File:: Rakefile
 # Author:: James Cuzella
 #
-# Copyright:: 2020,  James Cuzella
+# Copyright:: © 🄯 2020,  James Cuzella
 # License:: GPLv3.0
 #
 # This program is free software: you can redistribute it and/or modify
@@ -24,11 +24,26 @@
 require 'bundler/setup'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+require 'knife_cookbook_doc/rake_task'
 # http://acrmp.github.com/foodcritic/
 require 'foodcritic'
 
 task default: [:style, :spec]
 task test: [:default]
+
+# Maintainer tasks
+namespace :maintainer do
+  # With default options
+  KnifeCookbookDoc::RakeTask.new(:doc)
+
+  # Example with custom options
+  KnifeCookbookDoc::RakeTask.new(:doc) do |t|
+    t.options[:cookbook_dir] = './'
+    t.options[:constraints] = true
+    t.options[:output_file] = 'README.md'
+    t.options[:template_file] = "#{File.dirname(__FILE__)}/doc/templates/README.md.erb"
+  end
+end
 
 # Style tests. Knife, Rubocop and Foodcritic
 namespace :style do
@@ -52,7 +67,7 @@ namespace :style do
 
   desc 'Run FoodCritic style checks'
   FoodCritic::Rake::LintTask.new(:foodcritic) do |t|
-    t.options = {fail_tags: ['correctness'], tags: ['~FC023', '~FC121'], context: true}
+    t.options = {fail_tags: ['correctness'], tags: ['~FC023', '~FC121'], context: true, exclude_paths: ['doc/**/*']}
   end
 end
 

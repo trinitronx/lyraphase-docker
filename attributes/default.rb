@@ -6,7 +6,7 @@
 # Attribute:: default
 # Author:: James Cuzella
 #
-# Copyright:: 2020,  James Cuzella
+# Copyright:: © 🄯 2020,  James Cuzella
 # License:: GPLv3.0
 #
 # This program is free software: you can redistribute it and/or modify
@@ -22,5 +22,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+# <
+# A list of pre-existing users to add to the '`docker`' group. Optional.
+# The default is an empty Array (`[]` ), which skips this task, and adds no users to `docker` group.
+# >
 default['lyraphase-docker']['users'] = []
+# <> The version of `docker-ce` APT package to install. Supports same syntax as APT (e.g.: `version: 1.2.3` => `apt-get install docker-ce=1.2.3`, with version placed after `=`)
 default['lyraphase-docker']['version'] = '19.03.12'

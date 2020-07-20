@@ -5,7 +5,7 @@
 # Recipe:: default
 # Author:: James Cuzella
 #
-# Copyright:: 2020,  James Cuzella
+# Copyright:: © 🄯 2020,  James Cuzella
 # License:: GPLv3.0
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,6 +20,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# <
+# Install `docker-ce` from [Docker official Apt repository](https://docs.docker.com/engine/install/ubuntu/) via [`docker` cookbook.](https://supermarket.chef.io/cookbooks/docker)
+# >
 
 docker_installation_package 'default' do
   version node['lyraphase-docker']['version']

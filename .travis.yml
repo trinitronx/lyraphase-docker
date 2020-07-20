@@ -1,8 +1,11 @@
-dist: xenial
+dist: bionic
 addons:
   apt:
     sources:
-      - chef-current-focal
+      - chef-current-bionic
+# TODO: Enable when TravisCI adds this
+# Reference: https://github.com/travis-ci/apt-source-safelist/tree/master/keys
+#      - chef-current-focal
     packages:
       - chef-workstation
 services:
@@ -12,15 +15,15 @@ sudo: required
 
 # Don't `bundle install` which takes about 1.5 mins
 install:
-  - eval "$(chef shell-init bash)"
+  - export CHEF_LICENSE=accept ; eval "$(chef shell-init bash)"
   - chef exec bundle install
 
 env:
   - CHEF_LICENSE=accept
 
-branches:
-  only:
-    - master
+#branches:
+#  only:
+#    - master
 
 services: docker
 
@@ -36,8 +39,8 @@ before_script:
   - chef --version
 
 script:
-  - '[[ "$TEST_TYPE" == "unit" ]] && chef exec rake travis'
-  - '[[ "$TEST_TYPE" == "integration" ]] && kitchen verify ${KITCHEN_REGEXP}'
-after_script:
-  - '[[ "$TEST_TYPE" == "integration" ]] && echo "---------------- DOCKER CONTAINER LOGS ----------------"'
-  - '[[ "$TEST_TYPE" == "integration" ]] && for c in $(docker ps -aq) ; do sudo docker exec -ti $c /bin/journalctl --no-pager ; done'
+  - 'if [[ "$TEST_TYPE" == "unit" ]]; then chef exec rake travis ; fi'
+  - 'if [[ "$TEST_TYPE" == "integration" ]]; then KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen verify ${KITCHEN_REGEXP} ; fi'
+after_failure:
+  - '[[ "$TEST_TYPE" == "integration" ]] && echo "---------------- KITCHEN LOGS ----------------"'
+  - '[[ "$TEST_TYPE" == "integration" ]] && cat .kitchen/logs/kitchen.log'

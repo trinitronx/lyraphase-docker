@@ -5,7 +5,7 @@
 # Recipe:: docker_compose
 # Author:: James Cuzella
 #
-# Copyright:: 2020,  James Cuzella
+# Copyright:: © 🄯 2020,  James Cuzella
 # License:: GPLv3.0
 #
 # This program is free software: you can redistribute it and/or modify
@@ -20,6 +20,10 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# <
+# Install `docker-compose` via either [binary install method](https://github.com/docker/compose/releases/download), or from [official Ubuntu APT repository](http://archive.ubuntu.com/ubuntu/pool/universe/d/docker-compose/).
+# >
 
 compose_config = node['lyraphase-docker']['compose']
 
