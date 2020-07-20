@@ -27,6 +27,7 @@ require 'rubocop/rake_task'
 require 'knife_cookbook_doc/rake_task'
 # http://acrmp.github.com/foodcritic/
 require 'foodcritic'
+require 'github_changelog_generator/task'
 
 task default: [:style, :spec]
 task test: [:default]
@@ -42,6 +43,11 @@ namespace :maintainer do
     t.options[:constraints] = true
     t.options[:output_file] = 'README.md'
     t.options[:template_file] = "#{File.dirname(__FILE__)}/doc/templates/README.md.erb"
+  end
+
+  GitHubChangelogGenerator::RakeTask.new :changelog do |config|
+    config.user = 'trinitronx'
+    config.project = 'lyraphase-docker'
   end
 end
 
