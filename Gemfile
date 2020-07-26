@@ -68,5 +68,6 @@ group :development do
   #  gem 'mixlib-versioning'
   group :documentation do
     gem 'knife-cookbook-doc', '~> 0.29'
+    gem 'github_changelog_generator', '~> 1.14'
   end
 end
